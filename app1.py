@@ -21,7 +21,7 @@ class QueryRequest(BaseModel):
     query: str
 
 # Load and process PDF data
-loader = PyPDFLoader("lebo105.pdf")
+loader = PyPDFLoader("kebo118_kebo119_merged.pdf")
 data = loader.load()
 
 text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000)
