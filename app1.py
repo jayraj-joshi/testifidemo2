@@ -9,12 +9,28 @@ from langchain.chains import create_retrieval_chain
 from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain_core.prompts import ChatPromptTemplate
 from dotenv import load_dotenv
+from fastapi.middleware.cors import CORSMiddleware
 
 # Load environment variables
 load_dotenv()
 
 # Initialize FastAPI app
 app = FastAPI()
+
+# CORS configuration
+origins = [
+    "http://127.0.0.1:5500",  # For your frontend running on port 5500
+    # Add more allowed origins here as needed
+]
+
+# Add CORS middleware to FastAPI application
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,  # Allow the listed origins to access your API
+    allow_credentials=True,
+    allow_methods=["*"],  # Allow all HTTP methods (GET, POST, etc.)
+    allow_headers=["*"],  # Allow all headers
+)
 
 # Define input schema
 class QueryRequest(BaseModel):
