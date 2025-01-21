@@ -17,16 +17,10 @@ load_dotenv()
 # Initialize FastAPI app
 app = FastAPI()
 
-# CORS configuration
-origins = [
-    "http://127.0.0.1:5500",  # For your frontend running on port 5500
-    # Add more allowed origins here as needed
-]
-
-# Add CORS middleware to FastAPI application
+# CORS configuration to allow all origins
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,  # Allow the listed origins to access your API
+    allow_origins=["*"],  # Allow all origins
     allow_credentials=True,
     allow_methods=["*"],  # Allow all HTTP methods (GET, POST, etc.)
     allow_headers=["*"],  # Allow all headers
@@ -37,7 +31,7 @@ class QueryRequest(BaseModel):
     query: str
 
 # Load and process PDF data
-loader = PyPDFLoader("kebo118_kebo119_merged.pdf")
+loader = PyPDFLoader("plantphisio.pdf")
 data = loader.load()
 
 text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000)
